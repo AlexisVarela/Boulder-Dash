@@ -38,5 +38,7 @@ public abstract class Block {
 	public void setSprite(Image img) {
 		this.sprite = img;
 	}
+
+	public void walkOn() {}
 	
 }

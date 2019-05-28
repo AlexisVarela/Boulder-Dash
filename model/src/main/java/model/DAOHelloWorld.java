@@ -69,13 +69,13 @@ class DAOHelloWorld extends DAOEntity<Map> {
 		Map map = new Map();
 
 		try {
-			final String sql = "SELECT level FROM levels WHERE id=?";
+			final String sql = "SELECT level, width, height FROM levels WHERE id=?";
 			final CallableStatement call = this.getConnection().prepareCall(sql);
 			call.setInt(1, id);
 			call.execute();
 			final ResultSet result = call.getResultSet();
 			result.next();
-			map = new Map(result.getObject(1).toString());
+			map = new Map(result.getObject(1).toString(), (int) result.getObject(2), (int) result.getObject(3));
 		} catch (final SQLException e) {
 			e.printStackTrace();
 		}

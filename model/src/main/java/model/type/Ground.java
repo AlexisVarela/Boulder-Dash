@@ -25,5 +25,17 @@ public class Ground extends Block {
 	}
     this.walkedState = walkedState;
   }
+	
+	public void walkOn() {
+		if(!this.walkedState) {
+			try {
+				this.setSprite(ImageIO.read(Model.class.getResource("/voidGround.png")));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			this.walkedState = true;
+		}
+	}
   
 }

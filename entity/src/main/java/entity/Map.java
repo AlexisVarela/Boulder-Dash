@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import model.Block;
 import model.type.Diamond;
+import model.type.End;
 import model.type.Ground;
 import model.type.Stone;
 import model.type.Wall;
@@ -19,16 +20,20 @@ public class Map extends Entity {
 
 	private String dataMap;
 	private ArrayList<Block> generatedMap = new ArrayList<Block>();
+	private int Width;
+	private int Height;
 
-	public Map(String dataMap) {
+	public Map(String dataMap, int width, int height) {
 		this.setDataMap(dataMap);
+		this.setWidth(width);
+		this.setHeight(height);
 	}
 
 	/**
 	 * Instantiates a new hello world.
 	 */
 	public Map() {
-		this("");
+		this("",0,0);
 	}
 
 	public String getDataMap() {
@@ -40,6 +45,24 @@ public class Map extends Entity {
 		if (!dataMap.equals("")) {
 			generateMap();
 		}
+	}
+	
+	
+
+	public int getWidth() {
+		return Width;
+	}
+
+	public void setWidth(int width) {
+		Width = width;
+	}
+
+	public int getHeight() {
+		return Height;
+	}
+
+	public void setHeight(int height) {
+		Height = height;
 	}
 
 	public ArrayList<Block> getGeneratedMap() {
@@ -82,7 +105,10 @@ public class Map extends Entity {
 	    		  		Ground vground = new Ground(x,i,true);
 	    		  		this.generatedMap.add(vground);
 	    		  		break;
-		    		
+	    		  	case "end":
+	    		  		End end = new End(x, i);
+	    		  		this.generatedMap.add(end);
+	    		  		break;	    		
 	    		  }
 	    	  }
 	      }

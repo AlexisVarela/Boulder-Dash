@@ -9,6 +9,7 @@ import contract.ControllerOrder;
 import contract.IController;
 import contract.IModel;
 import contract.IView;
+import model.Block;
 
 /**
  * The Class Controller.
@@ -99,7 +100,7 @@ public final class Controller implements IController {
 	public boolean canMove(ControllerOrder controllerOrder) {
 		int x = 0;
 		int y = 0;
-		String[] notMove = {"unbreakableWall", "breakableWall"};
+		String[] notMove = {"model.type.Wall"};
 		switch(controllerOrder) {
 			case Top:
 				y = -1;
@@ -115,9 +116,11 @@ public final class Controller implements IController {
 				break;
 		}
 		
-		JSONObject map = new JSONObject(model.getMap().getDataMap());
-		String block = map.getJSONObject(String.valueOf((model.getPlayer().getPosY()/16)+y)).getJSONObject(String.valueOf((model.getPlayer().getPosX()/16)+x)).getString("type");
-		if (!Arrays.asList(notMove).contains(block)) {
+		Block block = model.getMap().getGeneratedMap().get(((model.getPlayer().getPosY()+y*16)/16 * model.getMap().getWidth()) + ((model.getPlayer().getPosX()+x*16)/16));
+		if (!Arrays.asList(notMove).contains(block.getClass().getName())) {
+			if(block.getClass().getName().equals("model.type.Ground")) {
+				block.walkOn();
+			}
 			return true;
 		}
 		return false;
