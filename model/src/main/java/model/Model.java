@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.Observable;
 
 import contract.IModel;
-import entity.HelloWorld;
+import entity.Map;
 
 /**
  * The Class Model.
@@ -14,14 +14,15 @@ import entity.HelloWorld;
 public final class Model extends Observable implements IModel {
 
 	/** The helloWorld. */
-	private HelloWorld helloWorld;
+	private Map map;
 
 	/**
 	 * Instantiates a new model.
 	 */
 	public Model() {
-		this.helloWorld = new HelloWorld();
+		this.map = new Map();
 	}
+
 
 	/**
      * Gets the hello world.
@@ -33,8 +34,8 @@ public final class Model extends Observable implements IModel {
 	 *
 	 * @see contract.IModel#getMessage()
 	 */
-	public HelloWorld getHelloWorld() {
-		return this.helloWorld;
+	public Map getMap() {
+		return this.map;
 	}
 
 	/**
@@ -43,8 +44,8 @@ public final class Model extends Observable implements IModel {
      * @param helloWorld
      *            the new hello world
      */
-	private void setHelloWorld(final HelloWorld helloWorld) {
-		this.helloWorld = helloWorld;
+	private void setMap(final Map map) {
+		this.map = map;
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -60,10 +61,10 @@ public final class Model extends Observable implements IModel {
 	 *
 	 * @see contract.IModel#getMessage(java.lang.String)
 	 */
-	public void loadHelloWorld(final String code) {
+	public void loadMap(final int id) {
 		try {
 			final DAOHelloWorld daoHelloWorld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
-			this.setHelloWorld(daoHelloWorld.find(code));
+			this.setMap(daoHelloWorld.find(id));
 		} catch (final SQLException e) {
 			e.printStackTrace();
 		}
@@ -81,5 +82,10 @@ public final class Model extends Observable implements IModel {
 	 */
 	public Observable getObservable() {
 		return this;
+	}
+
+
+	@Override
+	public void loadMap(String code) {
 	}
 }

@@ -7,4 +7,11 @@
   </parent>
   <artifactId>entity</artifactId>
   <name>Entity</name>
+  <dependencies>
+  	<dependency>
+  		<groupId>jpublankproject</groupId>
+  		<artifactId>model</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>
