@@ -38,7 +38,7 @@ public final class Controller implements IController {
 	 * @see contract.IController#control()
 	 */
 	public void control() {
-		this.view.printMessage("Appuyer sur les touches 'E', 'F', 'D' ou 'I', pour afficher Hello world dans la langue d votre choix.");
+		this.view.printMessage("Appuyez sur Z,Q,S,D pour vous déplacer. Et inch'allah ya rien à faire mais c'est le jeu ptdr vive le cesi et vive olivier sandel ☺");
 	}
 
 	/**
@@ -75,16 +75,16 @@ public final class Controller implements IController {
 	public void orderPerform(final ControllerOrder controllerOrder) {
 		switch (controllerOrder) {
 			case Top:
-				System.out.println("ta mere la pute");
+				System.out.println("THE TOP");
 				break;
 			case Right:
-				System.out.println("ta mere la pute");
+				System.out.println("THE RIGHT");
 				break;
 			case Bottom:
-				System.out.println("ta mere la pute");
+				System.out.println("THE BOTTOM");
 				break;
 			case Left:
-				System.out.println("ta mere la pute");
+				System.out.println("THE LEFT");
 				break;
 		}
 	}
