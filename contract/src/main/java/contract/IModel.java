@@ -3,6 +3,7 @@ package contract;
 import java.util.Observable;
 
 import entity.Map;
+import model.Player;
 
 /**
  * The Interface IModel.
@@ -17,6 +18,8 @@ public interface IModel {
 	 * @return the helloworld entity
 	 */
 	Map getMap();
+	
+	Player getPlayer();
 
 	/**
 	 * Load the message.

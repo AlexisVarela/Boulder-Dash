@@ -38,7 +38,7 @@ public final class Controller implements IController {
 	 * @see contract.IController#control()
 	 */
 	public void control() {
-		this.view.printMessage("Appuyez sur Z,Q,S,D pour vous déplacer. Et inch'allah ya rien à faire mais c'est le jeu ptdr vive le cesi et vive olivier sandel ☺");
+		this.view.printMessage("Appuyez sur Z,Q,S,D pour vous déplacer.");
 	}
 
 	/**
@@ -75,16 +75,16 @@ public final class Controller implements IController {
 	public void orderPerform(final ControllerOrder controllerOrder) {
 		switch (controllerOrder) {
 			case Top:
-				System.out.println("THE TOP");
+				this.model.getPlayer().setPosY(-16);
 				break;
 			case Right:
-				System.out.println("THE RIGHT");
+				this.model.getPlayer().setPosX(16);
 				break;
 			case Bottom:
-				System.out.println("THE BOTTOM");
+				this.model.getPlayer().setPosY(16);
 				break;
 			case Left:
-				System.out.println("THE LEFT");
+				this.model.getPlayer().setPosX(-16);
 				break;
 		}
 	}

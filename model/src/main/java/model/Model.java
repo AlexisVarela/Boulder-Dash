@@ -15,12 +15,14 @@ public final class Model extends Observable implements IModel {
 
 	/** The helloWorld. */
 	private Map map;
+	private Player player;
 
 	/**
 	 * Instantiates a new model.
 	 */
 	public Model() {
 		this.map = new Map();
+		this.player = new Player();
 	}
 
 
@@ -37,6 +39,16 @@ public final class Model extends Observable implements IModel {
 	public Map getMap() {
 		return this.map;
 	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
 
 	/**
      * Sets the hello world.

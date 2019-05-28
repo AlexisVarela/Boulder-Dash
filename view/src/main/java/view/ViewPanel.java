@@ -8,6 +8,7 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import model.Block;
+import model.Player;
 
 /**
  * The Class ViewPanel.
@@ -22,6 +23,8 @@ class ViewPanel extends JPanel implements Observer {
 	private static final long	serialVersionUID	= -998294702363713521L;
 	
 	private ArrayList<Block> map;
+	
+	private Player player;
 
 	/**
 	 * Instantiates a new view panel.
@@ -33,6 +36,7 @@ class ViewPanel extends JPanel implements Observer {
 		this.setViewFrame(viewFrame);
 		viewFrame.getModel().getObservable().addObserver(this);
 		this.map = viewFrame.getModel().getMap().getGeneratedMap();
+		this.player = viewFrame.getModel().getPlayer();
 	}
 
 	/**
@@ -74,5 +78,6 @@ class ViewPanel extends JPanel implements Observer {
 			Block block = this.map.get(i);
 			graphics.drawImage(block.getSprite(), block.getPosX(), block.getPosY(), this);
 		}
+		graphics.drawImage(this.player.getSprite(), this.player.getPosX(), this.player.getPosY(), this);
 	}
 }

@@ -7,4 +7,11 @@
   </parent>
   <artifactId>contract</artifactId>
   <name>Contract</name>
+   <dependencies>
+  	<dependency>
+  		<groupId>jpublankproject</groupId>
+  		<artifactId>model</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>
