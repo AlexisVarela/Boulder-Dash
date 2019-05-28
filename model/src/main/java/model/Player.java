@@ -14,7 +14,7 @@ public class Player {
 		this.posX = 16;
 		this.posY = 16;
 		try {
-	    	this.setSprite(ImageIO.read(Model.class.getResource("/player.png")));
+	    	this.setSprite(ImageIO.read(Model.class.getResource("/Normal.png")));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -26,6 +26,17 @@ public class Player {
 	}
 
 	public void setPosX(int posX) {
+		try {
+			if (posX > 0) {
+		    	this.setSprite(ImageIO.read(Model.class.getResource("/Droite.png")));
+			} else {
+				this.setSprite(ImageIO.read(Model.class.getResource("/Gauche.png")));
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		this.posX += posX;
 	}
 
@@ -34,6 +45,16 @@ public class Player {
 	}
 
 	public void setPosY(int posY) {
+		try {
+			if (posY > 0) {
+		    	this.setSprite(ImageIO.read(Model.class.getResource("/Bas.png")));
+			} else {
+				this.setSprite(ImageIO.read(Model.class.getResource("/Haut.png")));
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.posY += posY;
 	}
 	
