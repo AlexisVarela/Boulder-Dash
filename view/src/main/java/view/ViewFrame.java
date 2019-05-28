@@ -14,7 +14,7 @@ import contract.IModel;
 /**
  * The Class ViewFrame.
  *
- * @author Jean-Aymeric Diet
+ *
  */
 class ViewFrame extends JFrame implements KeyListener {
 
@@ -120,18 +120,19 @@ class ViewFrame extends JFrame implements KeyListener {
 	}
 
 	/**
-	 * Builds the view frame.
+	 * Crée la fenêtre d'affichage du jeu
 	 *
 	 * @param model
 	 *          the model
 	 */
 	private void buildViewFrame(final IModel model) {
 		this.setModel(model);
+		this.setTitle("Jeu Boulder Dash !");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.addKeyListener(this);
 		this.setContentPane(new ViewPanel(this));
-		this.setSize(700,700);
+		this.setSize(645,380);
 		this.setLocationRelativeTo(null);
 	}
 
