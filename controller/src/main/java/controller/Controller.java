@@ -1,5 +1,10 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.json.JSONObject;
+
 import contract.ControllerOrder;
 import contract.IController;
 import contract.IModel;
@@ -73,20 +78,49 @@ public final class Controller implements IController {
 	 * @see contract.IController#orderPerform(contract.ControllerOrder)
 	 */
 	public void orderPerform(final ControllerOrder controllerOrder) {
-		switch (controllerOrder) {
+		if (canMove(controllerOrder)) {
+			switch (controllerOrder) {
+				case Top:
+					this.model.getPlayer().setPosY(-16);
+					break;
+				case Right:
+					this.model.getPlayer().setPosX(16);
+					break;
+				case Bottom:
+					this.model.getPlayer().setPosY(16);
+					break;
+				case Left:
+					this.model.getPlayer().setPosX(-16);
+					break;
+			}
+		}
+	}
+	
+	public boolean canMove(ControllerOrder controllerOrder) {
+		int x = 0;
+		int y = 0;
+		String[] notMove = {"unbreakableWall", "breakableWall"};
+		switch(controllerOrder) {
 			case Top:
-				this.model.getPlayer().setPosY(-16);
+				y = -1;
 				break;
 			case Right:
-				this.model.getPlayer().setPosX(16);
+				x = 1;
 				break;
 			case Bottom:
-				this.model.getPlayer().setPosY(16);
+				y = 1;
 				break;
 			case Left:
-				this.model.getPlayer().setPosX(-16);
+				x = -1;
 				break;
 		}
+		
+		JSONObject map = new JSONObject(model.getMap().getDataMap());
+		String block = map.getJSONObject(String.valueOf((model.getPlayer().getPosY()/16)+y)).getJSONObject(String.valueOf((model.getPlayer().getPosX()/16)+x)).getString("type");
+		if (!Arrays.asList(notMove).contains(block)) {
+			return true;
+		}
+		return false;
 	}
 
 }
