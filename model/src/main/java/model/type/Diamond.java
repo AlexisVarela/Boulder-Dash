@@ -9,6 +9,7 @@ import model.Model;
 
 public class Diamond extends Block {
 
+	private boolean falling = false;
   // Constructeur
 	public Diamond(int posX, int posY) {
     super(posX, posY);
@@ -28,5 +29,15 @@ public class Diamond extends Block {
 			e.printStackTrace();
 		}
 	}
+
+	public boolean isFalling() {
+		return falling;
+	}
+
+	public void setFalling(boolean falling) {
+		this.falling = falling;
+	}
+	
+	
   
 }

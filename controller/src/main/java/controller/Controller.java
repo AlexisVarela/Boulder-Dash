@@ -10,6 +10,7 @@ import contract.IController;
 import contract.IModel;
 import contract.IView;
 import model.Block;
+import model.type.Diamond;
 import model.type.Ground;
 import model.type.Stone;
 
@@ -103,27 +104,33 @@ public final class Controller implements IController {
 		int x = 0;
 		int y = 0;
 		String[] notMove = {"model.type.Wall", "model.type.Stone"};
-		switch(controllerOrder) {
-			case Top:
-				y = -1;
-				break;
-			case Right:
-				x = 1;
-				break;
-			case Bottom:
-				y = 1;
-				break;
-			case Left:
-				x = -1;
-				break;
+		if (controllerOrder != null) {
+			switch(controllerOrder) {
+				case Top:
+					y = -1;
+					break;
+				case Right:
+					x = 1;
+					break;
+				case Bottom:
+					y = 1;
+					break;
+				case Left:
+					x = -1;
+					break;
+				default:
+					break;
+			}
+			
+			int idBlock = ((model.getPlayer().getPosY()+y*16)/16 * model.getMap().getWidth()) + ((model.getPlayer().getPosX()+x*16)/16);
+			Block block = model.getMap().getGeneratedMap().get(idBlock);
+			actionBlock(block, idBlock);
+			if (!Arrays.asList(notMove).contains(block.getClass().getName())) {
+				block.walkOn();
+				return true;
+			}
 		}
-		int idBlock = ((model.getPlayer().getPosY()+y*16)/16 * model.getMap().getWidth()) + ((model.getPlayer().getPosX()+x*16)/16);
-		Block block = model.getMap().getGeneratedMap().get(idBlock);
-		actionBlock(block, idBlock);
-		if (!Arrays.asList(notMove).contains(block.getClass().getName())) {
-			block.walkOn();
-			return true;
-		}
+		
 		return false;
 	}
 	
@@ -151,10 +158,55 @@ public final class Controller implements IController {
 						model.getPlayer().setPosX(-16);
 					}
 				}
-
+				
 			default:
 				break;
 		}
+	}
+	
+	public void run() {
+		while(true) {
+			this.checkForFall();
+			this.view.actualiser();
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void checkForFall() {
+		String[] fallable = {"model.type.Stone", "model.type.Diamond"};
+		ArrayList<Block> mapArray = model.getMap().getGeneratedMap();
+			for (int i=mapArray.size()-1; i>0; i--) {
+				Block block = mapArray.get(i);
+				if (Arrays.asList(fallable).contains(block.getClass().getName())) {
+					Block nextBlock = mapArray.get(i + model.getMap().getWidth());
+					if (nextBlock.isWalked() && (nextBlock.getPosY()/16 != model.getPlayer().getPosY()/16 || nextBlock.getPosX()/16 != model.getPlayer().getPosX()/16)) {
+						if (block.getClass().getName().equals("model.type.Stone")) {
+							Stone newBlock = new Stone(block.getPosX(), block.getPosY() + 16);
+							newBlock.setFalling(true);
+							mapArray.set(i + model.getMap().getWidth(), newBlock);
+						} else {
+							Diamond newBlock = new Diamond(block.getPosX(), block.getPosY() + 16);
+							newBlock.setFalling(true);
+							mapArray.set(i + model.getMap().getWidth(), newBlock);
+						}
+						mapArray.set(i, new Ground(block.getPosX(), block.getPosY(), true));
+						try {
+							this.view.actualiser();
+							Thread.sleep(150);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} else if (model.getPlayer().getPosX()/16 == nextBlock.getPosX()/16 && model.getPlayer().getPosY()/16 == nextBlock.getPosY()/16 && block.isFalling()) {
+						System.out.println("C'est la mooort qui nous sépare");
+					}
+				}
+			}
 	}
 
 }

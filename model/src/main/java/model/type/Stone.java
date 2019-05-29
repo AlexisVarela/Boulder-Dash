@@ -9,6 +9,8 @@ import model.Block;
 import model.Model;
 
 public class Stone extends Block {
+	
+	private boolean falling = false;
 
 	public Stone(int posX, int posY) {
 		super(posX, posY);
@@ -18,6 +20,15 @@ public class Stone extends Block {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-  }
+	}
+
+	public boolean isFalling() {
+		return falling;
+	}
+
+	public void setFalling(boolean falling) {
+		this.falling = falling;
+	}
   
+	
 }

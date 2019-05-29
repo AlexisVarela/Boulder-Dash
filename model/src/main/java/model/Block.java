@@ -20,7 +20,7 @@ public abstract class Block {
 	}
 	
 	public void setPosX(int posX) {
-		this.posX = posX;
+		this.posX += posX;
 	}
 	
 	public int getPosY() {
@@ -28,7 +28,7 @@ public abstract class Block {
 	}
 	
 	public void setPosY(int posY) {
-		this.posY = posY;
+		this.posY += posY;
 	}
 	
 	public Image getSprite() {
@@ -42,6 +42,10 @@ public abstract class Block {
 	public void walkOn() {}
 	
 	public boolean isWalked() {
+		return false;
+	}
+	
+	public boolean isFalling() {
 		return false;
 	}
 }

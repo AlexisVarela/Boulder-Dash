@@ -17,7 +17,7 @@ import contract.IView;
 public final class View implements IView, Runnable {
 
 	/** The frame. */
-	private final ViewFrame viewFrame;
+	public final ViewFrame viewFrame;
 
 	/**
 	 * Instantiates a new view.
@@ -79,4 +79,10 @@ public final class View implements IView, Runnable {
 	public void setController(final IController controller) {
 		this.viewFrame.setController(controller);
 	}
+
+	public void actualiser() {
+		this.viewFrame.repaint();
+	}
+	
+	
 }
