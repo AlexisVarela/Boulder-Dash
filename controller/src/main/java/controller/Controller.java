@@ -203,7 +203,10 @@ public final class Controller implements IController {
 							e.printStackTrace();
 						}
 					} else if (model.getPlayer().getPosX()/16 == nextBlock.getPosX()/16 && model.getPlayer().getPosY()/16 == nextBlock.getPosY()/16 && block.isFalling()) {
-						System.out.println("C'est la mooort qui nous sépare");
+						model.getPlayer().die();
+						this.view.actualiser();
+						this.view.printMessage("YOU DIED");
+						System.exit(0);
 					}
 				}
 			}

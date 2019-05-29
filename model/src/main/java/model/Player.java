@@ -76,4 +76,13 @@ public class Player {
 		this.score += score;
 	}
 	
+	public void die() {
+		try {
+			this.setSprite(ImageIO.read(Model.class.getResource("/Death.png")));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }
