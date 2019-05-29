@@ -19,5 +19,14 @@ public class Diamond extends Block {
 		e.printStackTrace();
 	}
   }
+	
+	public void walkOn() {
+		try {
+	    	this.setSprite(ImageIO.read(Model.class.getResource("/voidGround.png")));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
   
 }

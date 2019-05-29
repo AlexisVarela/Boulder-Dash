@@ -10,6 +10,8 @@ import contract.IController;
 import contract.IModel;
 import contract.IView;
 import model.Block;
+import model.type.Ground;
+import model.type.Stone;
 
 /**
  * The Class Controller.
@@ -100,7 +102,7 @@ public final class Controller implements IController {
 	public boolean canMove(ControllerOrder controllerOrder) {
 		int x = 0;
 		int y = 0;
-		String[] notMove = {"model.type.Wall"};
+		String[] notMove = {"model.type.Wall", "model.type.Stone"};
 		switch(controllerOrder) {
 			case Top:
 				y = -1;
@@ -115,15 +117,44 @@ public final class Controller implements IController {
 				x = -1;
 				break;
 		}
-		
-		Block block = model.getMap().getGeneratedMap().get(((model.getPlayer().getPosY()+y*16)/16 * model.getMap().getWidth()) + ((model.getPlayer().getPosX()+x*16)/16));
+		int idBlock = ((model.getPlayer().getPosY()+y*16)/16 * model.getMap().getWidth()) + ((model.getPlayer().getPosX()+x*16)/16);
+		Block block = model.getMap().getGeneratedMap().get(idBlock);
+		actionBlock(block, idBlock);
 		if (!Arrays.asList(notMove).contains(block.getClass().getName())) {
-			if(block.getClass().getName().equals("model.type.Ground")) {
-				block.walkOn();
-			}
+			block.walkOn();
 			return true;
 		}
 		return false;
+	}
+	
+	public void actionBlock(Block block, int idBlock) {
+		int playerX = model.getPlayer().getPosX()/16;
+		int blockX = block.getPosX()/16;
+		switch (block.getClass().getName()) {
+			case "model.type.Diamond":
+				model.getMap().getGeneratedMap().set(idBlock, new Ground(block.getPosX(), block.getPosY(), true));
+				model.getPlayer().setScore(1);
+				break;
+			case "model.type.Stone":
+				if (playerX == blockX - 1) {
+					Block nextBlock = model.getMap().getGeneratedMap().get(idBlock+1);
+					if (nextBlock.isWalked()) {
+						model.getMap().getGeneratedMap().set(idBlock+1, new Stone(nextBlock.getPosX(), nextBlock.getPosY()));
+						model.getMap().getGeneratedMap().set(idBlock, new Ground(block.getPosX(), block.getPosY(), true));
+						model.getPlayer().setPosX(16);
+					}
+				} else if (playerX == blockX + 1) {
+					Block nextBlock = model.getMap().getGeneratedMap().get(idBlock-1);
+					if (nextBlock.isWalked()) {
+						model.getMap().getGeneratedMap().set(idBlock-1, new Stone(nextBlock.getPosX(), nextBlock.getPosY()));
+						model.getMap().getGeneratedMap().set(idBlock, new Ground(block.getPosX(), block.getPosY(), true));
+						model.getPlayer().setPosX(-16);
+					}
+				}
+
+			default:
+				break;
+		}
 	}
 
 }

@@ -41,4 +41,7 @@ public abstract class Block {
 
 	public void walkOn() {}
 	
+	public boolean isWalked() {
+		return false;
+	}
 }

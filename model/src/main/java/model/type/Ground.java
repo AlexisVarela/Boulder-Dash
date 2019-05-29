@@ -23,19 +23,29 @@ public class Ground extends Block {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-    this.walkedState = walkedState;
+    this.setWalked(walkedState);
   }
 	
 	public void walkOn() {
-		if(!this.walkedState) {
+		if(!this.isWalked()) {
 			try {
 				this.setSprite(ImageIO.read(Model.class.getResource("/voidGround.png")));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			this.walkedState = true;
+			this.setWalked(true);
 		}
 	}
+
+	public boolean isWalked() {
+		return (boolean) this.walkedState;
+	}
+
+	public void setWalked(boolean walkedState) {
+		this.walkedState = walkedState;
+	}
+	
+	
   
 }

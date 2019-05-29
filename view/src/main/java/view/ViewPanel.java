@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -79,5 +80,9 @@ class ViewPanel extends JPanel implements Observer {
 			graphics.drawImage(block.getSprite(), block.getPosX(), block.getPosY(), this);
 		}
 		graphics.drawImage(this.player.getSprite(), this.player.getPosX(), this.player.getPosY(), this);
+		graphics.setColor(Color.white);
+		graphics.fillRect(16, 0, 55, 16);
+		graphics.setColor(Color.black);
+		graphics.drawString("Score : " + this.player.getScore(), 18, 12);
 	}
 }
