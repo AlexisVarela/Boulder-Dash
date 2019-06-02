@@ -120,7 +120,7 @@ public class ViewFrame extends JFrame implements KeyListener {
 	}
 
 	/**
-	 * Crée la fenêtre d'affichage du jeu
+	 * Create the game view window
 	 *
 	 * @param model
 	 *          the model

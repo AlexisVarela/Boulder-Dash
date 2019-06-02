@@ -14,7 +14,6 @@ import model.Player;
 /**
  * The Class ViewPanel.
  *
- * @author Jean-Aymeric Diet
  */
 class ViewPanel extends JPanel implements Observer {
 
