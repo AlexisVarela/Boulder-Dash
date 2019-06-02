@@ -14,7 +14,6 @@ import model.type.Wall;
 /**
  * The Class HelloWorld.
  *
- * @author Jean-Aymeric Diet
  */
 public class Map extends Entity {
 
@@ -30,7 +29,7 @@ public class Map extends Entity {
 	}
 
 	/**
-	 * Instantiates a new hello world.
+	 * Instantiates a new Map.
 	 */
 	public Map() {
 		this("",0,0);
@@ -47,7 +46,10 @@ public class Map extends Entity {
 		}
 	}
 	
-	
+	/**
+	 * Instantiates a new Width and Height
+	 * @return
+	 */
 
 	public int getWidth() {
 		return Width;
@@ -65,6 +67,7 @@ public class Map extends Entity {
 		Height = height;
 	}
 
+	
 	public ArrayList<Block> getGeneratedMap() {
 		return generatedMap;
 	}
@@ -73,6 +76,10 @@ public class Map extends Entity {
 		this.generatedMap = generatedMap;
 	}
 
+	/**
+	 * Generate the map
+	 */
+	
 	public void generateMap() {
 		JSONObject obj = new JSONObject(this.dataMap);
 		for (int i=0; i<22*16; i+=16) {
