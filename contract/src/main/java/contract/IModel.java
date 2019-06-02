@@ -8,21 +8,20 @@ import model.Player;
 /**
  * The Interface IModel.
  *
- * @author Jean-Aymeric Diet
  */
 public interface IModel {
 
 	/**
-	 * Gets the hello world.
+	 * Gets the map and player.
 	 *
-	 * @return the helloworld entity
+	 * @return the map and player entity
 	 */
 	Map getMap();
 	
 	Player getPlayer();
 
 	/**
-	 * Load the message.
+	 * Load the map.
 	 *
 	 * @param code
 	 *          the code
