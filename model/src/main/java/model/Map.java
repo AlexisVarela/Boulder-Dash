@@ -1,10 +1,11 @@
-package entity;
+package model;
 
 import java.util.ArrayList;
 
 import org.json.JSONObject;
 
-import model.Block;
+import contract.IBlock;
+import contract.IMap;
 import model.type.Diamond;
 import model.type.End;
 import model.type.Ground;
@@ -12,14 +13,10 @@ import model.type.Monster;
 import model.type.Stone;
 import model.type.Wall;
 
-/**
- * The Class HelloWorld.
- *
- */
-public class Map extends Entity {
+public class Map implements IMap {
 
 	private String dataMap;
-	private ArrayList<Block> generatedMap = new ArrayList<Block>();
+	private ArrayList<IBlock> generatedMap = new ArrayList<IBlock>();
 	private int Width;
 	private int Height;
 	private int diamonds;
@@ -65,13 +62,12 @@ public class Map extends Entity {
 	public void setHeight(int height) {
 		Height = height;
 	}
-
 	
-	public ArrayList<Block> getGeneratedMap() {
+	public ArrayList<IBlock> getGeneratedMap() {
 		return generatedMap;
 	}
 
-	public void setGeneratedMap(ArrayList<Block> generatedMap) {
+	public void setGeneratedMap(ArrayList<IBlock> generatedMap) {
 		this.generatedMap = generatedMap;
 	}
 
@@ -87,8 +83,8 @@ public class Map extends Entity {
 		return end;
 	}
 
-	public void setEnd(Block end) {
-		this.end = end;
+	public void setEnd(IBlock end) {
+		this.end = (Block) end;
 	}
 
 	public void generateMap() {
@@ -135,5 +131,5 @@ public class Map extends Entity {
 	      }
 	}
 	
-
 }
+ 

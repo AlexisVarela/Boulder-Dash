@@ -5,14 +5,16 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import entity.Map;
 
 /**
  * The Class DAOHelloWorld.
  *
  * @author Jean-Aymeric Diet
  */
-class DAOHelloWorld extends DAOEntity<Map> {
+class DAOHelloWorld {
+
+	
+	private Connection connection;
 
 	/**
 	 * Instantiates a new DAO hello world.
@@ -23,7 +25,7 @@ class DAOHelloWorld extends DAOEntity<Map> {
 	 *           the SQL exception
 	 */
 	public DAOHelloWorld(final Connection connection) throws SQLException {
-		super(connection);
+		this.connection = connection;
 	}
 
 	/*
@@ -31,7 +33,6 @@ class DAOHelloWorld extends DAOEntity<Map> {
 	 *
 	 * @see model.DAOEntity#create(model.Entity)
 	 */
-	@Override
 	public boolean create(final Map entity) {
 		// Not implemented
 		return false;
@@ -42,7 +43,6 @@ class DAOHelloWorld extends DAOEntity<Map> {
 	 *
 	 * @see model.DAOEntity#delete(model.Entity)
 	 */
-	@Override
 	public boolean delete(final Map entity) {
 		// Not implemented
 		return false;
@@ -53,7 +53,6 @@ class DAOHelloWorld extends DAOEntity<Map> {
 	 *
 	 * @see model.DAOEntity#update(model.Entity)
 	 */
-	@Override
 	public boolean update(final Map entity) {
 		// Not implemented
 		return false;
@@ -64,7 +63,6 @@ class DAOHelloWorld extends DAOEntity<Map> {
 	 *
 	 * @see model.DAOEntity#find(int)
 	 */
-	@Override
 	public Map find(final int id) {
 		Map map = new Map();
 
@@ -87,8 +85,17 @@ class DAOHelloWorld extends DAOEntity<Map> {
 	 *
 	 * @see model.DAOEntity#find(java.lang.String)
 	 */
-	@Override
 	public Map find(final String code) {
 		return null;
 	}
+
+	public Connection getConnection() {
+		return connection;
+	}
+
+	public void setConnection(Connection connection) {
+		this.connection = connection;
+	}
+	
+	
 }

@@ -5,10 +5,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import contract.IBlock;
 import model.Block;
 import model.Model;
 
-public class Stone extends Block {
+public class Stone extends Block implements IBlock {
 	
 	private boolean falling = false;
 

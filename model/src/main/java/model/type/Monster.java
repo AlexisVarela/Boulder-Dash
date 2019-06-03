@@ -5,10 +5,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import contract.IBlock;
 import model.Block;
 import model.Model;
 
-public class Monster extends Block {
+public class Monster extends Block implements IBlock {
 	private int posX;
 	private int posY;
 	private Image sprite;

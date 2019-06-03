@@ -2,11 +2,13 @@ package model;
 
 import java.awt.Image;
 
-public abstract class Block {
+import contract.IBlock;
+
+public abstract class Block implements IBlock {
   // Attributs
 	protected int posX;
 	protected int posY;
-  protected Image sprite;
+	protected Image sprite;
 
   // Constructeur
 	public Block(int posX, int posY) {

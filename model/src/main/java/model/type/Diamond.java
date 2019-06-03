@@ -4,10 +4,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import contract.IBlock;
 import model.Block;
 import model.Model;
 
-public class Diamond extends Block {
+public class Diamond extends Block implements IBlock {
 
 	private boolean falling = false;
   // Constructeur

@@ -4,10 +4,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import contract.IBlock;
 import model.Block;
 import model.Model;
 
-public class Ground extends Block {
+public class Ground extends Block implements IBlock {
 
   protected boolean walkedState;
 

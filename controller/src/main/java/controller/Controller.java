@@ -7,8 +7,10 @@ import java.util.Random;
 import org.json.JSONObject;
 
 import contract.ControllerOrder;
+import contract.IBlock;
 import contract.IController;
 import contract.IModel;
+import contract.IPlayer;
 import contract.IView;
 import model.Block;
 import model.Player;
@@ -126,8 +128,8 @@ public final class Controller implements IController {
 			}
 			
 			int idBlock = ((model.getPlayer().getPosY()+y*16)/16 * model.getMap().getWidth()) + ((model.getPlayer().getPosX()+x*16)/16);
-			Block block = model.getMap().getGeneratedMap().get(idBlock);
-			actionBlock(block, idBlock);
+			IBlock block = model.getMap().getGeneratedMap().get(idBlock);
+			actionBlock((Block) block, idBlock);
 			if (!Arrays.asList(notMove).contains(block.getClass().getName())) {
 				block.walkOn();
 				return true;
@@ -150,14 +152,14 @@ public final class Controller implements IController {
 				break;
 			case "model.type.Stone":
 				if (playerX == blockX - 1) {
-					Block nextBlock = model.getMap().getGeneratedMap().get(idBlock+1);
+					IBlock nextBlock = model.getMap().getGeneratedMap().get(idBlock+1);
 					if (nextBlock.isWalked()) {
 						model.getMap().getGeneratedMap().set(idBlock+1, new Stone(nextBlock.getPosX(), nextBlock.getPosY()));
 						model.getMap().getGeneratedMap().set(idBlock, new Ground(block.getPosX(), block.getPosY(), true));
 						model.getPlayer().setPosX(16);
 					}
 				} else if (playerX == blockX + 1) {
-					Block nextBlock = model.getMap().getGeneratedMap().get(idBlock-1);
+					IBlock nextBlock = model.getMap().getGeneratedMap().get(idBlock-1);
 					if (nextBlock.isWalked()) {
 						model.getMap().getGeneratedMap().set(idBlock-1, new Stone(nextBlock.getPosX(), nextBlock.getPosY()));
 						model.getMap().getGeneratedMap().set(idBlock, new Ground(block.getPosX(), block.getPosY(), true));
@@ -201,12 +203,12 @@ public final class Controller implements IController {
 	
 	public void checkForFall() {
 		String[] fallable = {"model.type.Stone", "model.type.Diamond"};
-		ArrayList<Block> mapArray = model.getMap().getGeneratedMap();
+		ArrayList<IBlock> mapArray = model.getMap().getGeneratedMap();
 		
 			for (int i=mapArray.size()-1; i>0; i--) {
-				Block block = mapArray.get(i);
+				IBlock block = mapArray.get(i);
 				if (Arrays.asList(fallable).contains(block.getClass().getName())) {
-					Block nextBlock = mapArray.get(i + model.getMap().getWidth());
+					IBlock nextBlock = mapArray.get(i + model.getMap().getWidth());
 					if (nextBlock.isWalked() && (nextBlock.getPosY()/16 != model.getPlayer().getPosY()/16 || nextBlock.getPosX()/16 != model.getPlayer().getPosX()/16)) {
 						if (block.getClass().getName().equals("model.type.Stone")) {
 							Stone newBlock = new Stone(block.getPosX(), block.getPosY() + 16);
@@ -235,11 +237,11 @@ public final class Controller implements IController {
 	}
 	
 	public void moveMonster() {
-		ArrayList<Block> mapArray = model.getMap().getGeneratedMap();
+		ArrayList<IBlock> mapArray = model.getMap().getGeneratedMap();
 		int x=0;
 		int y=0;
 		for (int i=0; i<mapArray.size(); i++) {
-			Block block = mapArray.get(i);
+			IBlock block = mapArray.get(i);
 			if (block.getClass().getName().equals("model.type.Monster")) {
 				Random rand = new Random();
 				int move = rand.nextInt(4);
@@ -259,7 +261,7 @@ public final class Controller implements IController {
 				}
 				
 				int idNextBlock = ((block.getPosY()+y*16)/16 * model.getMap().getWidth()) + ((block.getPosX()+x*16)/16);
-				Block nextBlock = model.getMap().getGeneratedMap().get(idNextBlock);
+				IBlock nextBlock = model.getMap().getGeneratedMap().get(idNextBlock);
 				if (nextBlock.getClass().getName().equals("model.type.Ground") && nextBlock.isWalked()) {
 					mapArray.set(idNextBlock, new Monster(nextBlock.getPosX(), nextBlock.getPosY()));
 					mapArray.set(i, new Ground(block.getPosX(), block.getPosY(), true));
@@ -282,9 +284,9 @@ public final class Controller implements IController {
 	}
 	
 	public void explode(int i) {
-		ArrayList<Block> mapArray = model.getMap().getGeneratedMap();
+		ArrayList<IBlock> mapArray = model.getMap().getGeneratedMap();
 		if (i == 0) {
-			Player player = model.getPlayer();
+			IPlayer player = model.getPlayer();
 			while (mapArray.get(i).getPosX() != player.getPosX() || mapArray.get(i).getPosY() != player.getPosY()) {
 				i++;
 			}

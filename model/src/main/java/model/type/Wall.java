@@ -4,10 +4,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import contract.IBlock;
 import model.Block;
 import model.Model;
 
-public class Wall extends Block {
+public class Wall extends Block implements IBlock {
 
   protected boolean breakable;
 

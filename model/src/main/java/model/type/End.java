@@ -6,10 +6,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import contract.IBlock;
 import model.Block;
 import model.Model;
 
-public class End extends Block {
+public class End extends Block implements IBlock {
 
 	public End(int posX, int posY) {
 		super(posX, posY);

@@ -5,7 +5,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Player {
+import contract.IPlayer;
+
+public class Player implements IPlayer {
 	private int posX;
 	private int posY;
 	private Image sprite;

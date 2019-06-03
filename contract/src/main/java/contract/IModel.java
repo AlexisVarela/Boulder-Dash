@@ -2,9 +2,6 @@ package contract;
 
 import java.util.Observable;
 
-import entity.Map;
-import model.Player;
-
 /**
  * The Interface IModel.
  *
@@ -16,9 +13,9 @@ public interface IModel {
 	 *
 	 * @return the map and player entity
 	 */
-	Map getMap();
+	IMap getMap();
 	
-	Player getPlayer();
+	IPlayer getPlayer();
 
 	/**
 	 * Load the map.
