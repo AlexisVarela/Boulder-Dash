@@ -31,7 +31,7 @@ Pour installer le projet en développement, quelques pré-requis sont nécessair
 Il faut ensuite cloner le projet via Git: `$ git clone https://github.com/AlexisVarela/Projet-Java.git` puis l'ouvrir avec votre IDE favori.
 
 ### Utilisation
-Pour jouer au jeu, il suffit de télécharger la dernière version dans l'onglet [/releases](/release).
+Pour jouer au jeu, il suffit de télécharger la dernière version dans l'onglet [/releases](/releases).
 
 ### Membres
 - Alexis VARELA, *Chef de projet*
