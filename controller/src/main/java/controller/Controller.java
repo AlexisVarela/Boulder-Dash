@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-import org.json.JSONObject;
-
 import contract.ControllerOrder;
 import contract.IBlock;
 import contract.IController;
@@ -13,7 +11,6 @@ import contract.IModel;
 import contract.IPlayer;
 import contract.IView;
 import model.Block;
-import model.Player;
 import model.type.Diamond;
 import model.type.Ground;
 import model.type.Monster;

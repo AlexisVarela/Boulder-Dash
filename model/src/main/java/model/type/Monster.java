@@ -13,8 +13,7 @@ import model.Model;
  * Class Monster
  */
 public class Monster extends Block implements IBlock {
-	private int posX;
-	private int posY;
+
 	private Image sprite;
 
 	public Monster(int posX, int posY) {
