@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import contract.IBlock;
 import contract.IPlayer;
 import model.Block;
-import model.Player;
 
 /**
  * The Class ViewPanel.
@@ -46,7 +45,7 @@ class ViewPanel extends JPanel implements Observer {
 	 *
 	 * @return the view frame
 	 */
-	private ViewFrame getViewFrame() {
+	public ViewFrame getViewFrame() {
 		return this.viewFrame;
 	}
 
