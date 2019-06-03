@@ -204,12 +204,29 @@ public final class Controller implements IController {
 	public void checkForFall() {
 		String[] fallable = {"model.type.Stone", "model.type.Diamond"};
 		ArrayList<IBlock> mapArray = model.getMap().getGeneratedMap();
-		
 			for (int i=mapArray.size()-1; i>0; i--) {
 				IBlock block = mapArray.get(i);
 				if (Arrays.asList(fallable).contains(block.getClass().getName())) {
 					IBlock nextBlock = mapArray.get(i + model.getMap().getWidth());
-					if (nextBlock.isWalked() && (nextBlock.getPosY()/16 != model.getPlayer().getPosY()/16 || nextBlock.getPosX()/16 != model.getPlayer().getPosX()/16)) {
+					if (nextBlock.getClass().getName().equals("model.type.Stone")) {
+						IBlock previousBlock = mapArray.get(i + model.getMap().getWidth() - 1);
+						IBlock afterBlock = mapArray.get(i + model.getMap().getWidth() + 1);
+						if ((previousBlock.getPosX() == model.getPlayer().getPosX() && previousBlock.getPosY() == model.getPlayer().getPosY()) || (afterBlock.getPosX() == model.getPlayer().getPosX() && afterBlock.getPosY() == model.getPlayer().getPosY())) {
+							this.die();
+						} else {
+							if (previousBlock.getClass().getName().equals("model.type.Ground") && previousBlock.isWalked()) {
+								Stone newBlock = new Stone(previousBlock.getPosX(), previousBlock.getPosY());
+								newBlock.setFalling(true);
+								mapArray.set(i + model.getMap().getWidth() - 1, newBlock);
+								mapArray.set(i, new Ground(block.getPosX(), block.getPosY(), true));
+							} else if (afterBlock.getClass().getName().equals("model.type.Ground") && afterBlock.isWalked()) {
+								Stone newBlock = new Stone(afterBlock.getPosX(), afterBlock.getPosY());
+								newBlock.setFalling(true);
+								mapArray.set(i + model.getMap().getWidth() + 1, newBlock);
+								mapArray.set(i, new Ground(block.getPosX(), block.getPosY(), true));
+							}
+						}
+					} else if (nextBlock.isWalked() && (nextBlock.getPosY()/16 != model.getPlayer().getPosY()/16 || nextBlock.getPosX()/16 != model.getPlayer().getPosX()/16)) {
 						if (block.getClass().getName().equals("model.type.Stone")) {
 							Stone newBlock = new Stone(block.getPosX(), block.getPosY() + 16);
 							newBlock.setFalling(true);
