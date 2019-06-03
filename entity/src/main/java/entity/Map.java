@@ -8,6 +8,7 @@ import model.Block;
 import model.type.Diamond;
 import model.type.End;
 import model.type.Ground;
+import model.type.Monster;
 import model.type.Stone;
 import model.type.Wall;
 
@@ -21,18 +22,21 @@ public class Map extends Entity {
 	private ArrayList<Block> generatedMap = new ArrayList<Block>();
 	private int Width;
 	private int Height;
+	private int diamonds;
+	private Block end;
 
-	public Map(String dataMap, int width, int height) {
+	public Map(String dataMap, int width, int height, int nb_diamonds) {
 		this.setDataMap(dataMap);
 		this.setWidth(width);
 		this.setHeight(height);
+		this.setDiamonds(nb_diamonds);
 	}
 
 	/**
 	 * Instantiates a new Map.
 	 */
 	public Map() {
-		this("",0,0);
+		this("",0,0,0);
 	}
 
 	public String getDataMap() {
@@ -45,11 +49,6 @@ public class Map extends Entity {
 			generateMap();
 		}
 	}
-	
-	/**
-	 * Instantiates a new Width and Height
-	 * @return
-	 */
 
 	public int getWidth() {
 		return Width;
@@ -76,16 +75,26 @@ public class Map extends Entity {
 		this.generatedMap = generatedMap;
 	}
 
-	/**
-	 * Generate the map
-	 */
-	
+	public int getDiamonds() {
+		return diamonds;
+	}
+
+	public void setDiamonds(int diamonds) {
+		this.diamonds = diamonds;
+	}
+
+	public Block getEnd() {
+		return end;
+	}
+
+	public void setEnd(Block end) {
+		this.end = end;
+	}
+
 	public void generateMap() {
 		JSONObject obj = new JSONObject(this.dataMap);
 		for (int i=0; i<22*16; i+=16) {
 	    	  for(int x=0; x<40*16; x+=16) {
-	    		  //System.out.println(obj.getJSONObject(String.valueOf(i/32)).getJSONObject(String.valueOf(x/32)).getString("type"));
-	    		  //System.out.println("------------------");
 	    		  String block = obj.getJSONObject(String.valueOf(i/16)).getJSONObject(String.valueOf(x/16)).getString("type");
 	    		  switch(block) {
 	    		  	case "unbreakableWall":
@@ -114,8 +123,13 @@ public class Map extends Entity {
 	    		  		break;
 	    		  	case "end":
 	    		  		End end = new End(x, i);
+	    		  		this.setEnd(end);
 	    		  		this.generatedMap.add(end);
-	    		  		break;	    		
+	    		  		break;
+	    		  	case "monster":
+	    		  		Monster monster = new Monster(x,i);
+	    		  		this.generatedMap.add(monster);
+	    		  		break;
 	    		  }
 	    	  }
 	      }

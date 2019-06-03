@@ -8,7 +8,7 @@
   <artifactId>model</artifactId>
   <name>Model</name>
   <dependencies>
-  	<dependency>
+  <dependency>
   		<groupId>jpublankproject</groupId>
   		<artifactId>contract</artifactId>
   		<version>0.0.1-SNAPSHOT</version>

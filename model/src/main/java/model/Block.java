@@ -48,4 +48,6 @@ public abstract class Block {
 	public boolean isFalling() {
 		return false;
 	}
+
+	public void release() {}
 }

@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 import org.json.JSONObject;
 
@@ -10,8 +11,10 @@ import contract.IController;
 import contract.IModel;
 import contract.IView;
 import model.Block;
+import model.Player;
 import model.type.Diamond;
 import model.type.Ground;
+import model.type.Monster;
 import model.type.Stone;
 
 /**
@@ -141,6 +144,9 @@ public final class Controller implements IController {
 			case "model.type.Diamond":
 				model.getMap().getGeneratedMap().set(idBlock, new Ground(block.getPosX(), block.getPosY(), true));
 				model.getPlayer().setScore(1);
+				if (model.getPlayer().getScore() == model.getMap().getDiamonds()) {
+					this.model.getMap().getEnd().release();
+				}
 				break;
 			case "model.type.Stone":
 				if (playerX == blockX - 1) {
@@ -158,6 +164,17 @@ public final class Controller implements IController {
 						model.getPlayer().setPosX(-16);
 					}
 				}
+				break;
+			
+			case "model.type.End":
+				if (model.getPlayer().getScore() == model.getMap().getDiamonds()) {
+					this.view.printMessage("YOU WON");
+					System.exit(0);
+				}
+				break;
+			case "model.type.Monster":
+				this.die();
+				break;
 				
 			default:
 				break;
@@ -165,8 +182,13 @@ public final class Controller implements IController {
 	}
 	
 	public void run() {
+		int i=0;
 		while(true) {
+			i++;
 			this.checkForFall();
+			if (i%30 == 0) {
+				this.moveMonster();
+			}
 			this.view.actualiser();
 			try {
 				Thread.sleep(50);
@@ -180,6 +202,7 @@ public final class Controller implements IController {
 	public void checkForFall() {
 		String[] fallable = {"model.type.Stone", "model.type.Diamond"};
 		ArrayList<Block> mapArray = model.getMap().getGeneratedMap();
+		
 			for (int i=mapArray.size()-1; i>0; i--) {
 				Block block = mapArray.get(i);
 				if (Arrays.asList(fallable).contains(block.getClass().getName())) {
@@ -202,14 +225,85 @@ public final class Controller implements IController {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+					} else if (nextBlock.getClass().getName().equals("model.type.Monster")) {
+						this.explode(i);
 					} else if (model.getPlayer().getPosX()/16 == nextBlock.getPosX()/16 && model.getPlayer().getPosY()/16 == nextBlock.getPosY()/16 && block.isFalling()) {
-						model.getPlayer().die();
-						this.view.actualiser();
-						this.view.printMessage("YOU DIED");
-						System.exit(0);
+						this.die();
 					}
 				}
 			}
 	}
+	
+	public void moveMonster() {
+		ArrayList<Block> mapArray = model.getMap().getGeneratedMap();
+		int x=0;
+		int y=0;
+		for (int i=0; i<mapArray.size(); i++) {
+			Block block = mapArray.get(i);
+			if (block.getClass().getName().equals("model.type.Monster")) {
+				Random rand = new Random();
+				int move = rand.nextInt(4);
+				switch (move) {
+					case 0:
+						y = -1;
+						break;
+					case 1:
+						x = 1;
+						break;
+					case 2:
+						y = 1;
+						break;
+					case 3:
+						x = -1;
+						break;
+				}
+				
+				int idNextBlock = ((block.getPosY()+y*16)/16 * model.getMap().getWidth()) + ((block.getPosX()+x*16)/16);
+				Block nextBlock = model.getMap().getGeneratedMap().get(idNextBlock);
+				if (nextBlock.getClass().getName().equals("model.type.Ground") && nextBlock.isWalked()) {
+					mapArray.set(idNextBlock, new Monster(nextBlock.getPosX(), nextBlock.getPosY()));
+					mapArray.set(i, new Ground(block.getPosX(), block.getPosY(), true));
+					block.setPosX(x*16);
+					block.setPosY(y*16);
+					if (block.getPosX() == model.getPlayer().getPosX() && block.getPosY() == model.getPlayer().getPosY()) {
+						this.die();
+					}
+				}
+			}
+		}
+	}
 
+	public void die() {
+		this.model.getPlayer().die();
+		this.explode(0);
+		this.view.actualiser();
+		this.view.printMessage("YOU DIED");
+		System.exit(0);
+	}
+	
+	public void explode(int i) {
+		ArrayList<Block> mapArray = model.getMap().getGeneratedMap();
+		if (i == 0) {
+			Player player = model.getPlayer();
+			while (mapArray.get(i).getPosX() != player.getPosX() || mapArray.get(i).getPosY() != player.getPosY()) {
+				i++;
+			}
+		}
+		
+		int width = model.getMap().getWidth();
+		int[] explosed = {
+				i - width - 1,
+				i - width,
+				i - width + 1,
+				i - 1,
+				i,
+				i + 1,
+				i + width - 1,
+				i + width,
+				i + width + 1
+		};
+		for (int x=0; x<explosed.length; x++) {
+			mapArray.set(explosed[x], new Diamond(mapArray.get(explosed[x]).getPosX(), mapArray.get(explosed[x]).getPosY()));
+		}
+	}
 }

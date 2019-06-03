@@ -7,7 +7,7 @@
   </parent>
   <artifactId>contract</artifactId>
   <name>Contract</name>
-   <dependencies>
+  <dependencies>
   	<dependency>
   		<groupId>jpublankproject</groupId>
   		<artifactId>model</artifactId>

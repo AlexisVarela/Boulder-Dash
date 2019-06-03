@@ -23,7 +23,7 @@ public abstract class Main {
      */
     public static void main(final String[] args) {
         final Model model = new Model();
-        model.loadMap(1);
+        model.loadMap(5);
         final View view = new View(model);
         final Controller controller = new Controller(view, model);
         view.setController(controller);
