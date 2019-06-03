@@ -66,7 +66,7 @@ class DAOMap {
 		Map map = new Map();
 
 		try {
-			final String sql = "SELECT level, width, height, nb_diamonds FROM levels WHERE id=?";
+			final String sql = "CALL getMap(?)";
 			final CallableStatement call = this.getConnection().prepareCall(sql);
 			call.setInt(1, id);
 			call.execute();
