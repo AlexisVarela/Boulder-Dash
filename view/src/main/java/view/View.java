@@ -12,12 +12,11 @@ import contract.IView;
 /**
  * The Class View.
  *
- * @author Jean-Aymeric Diet
  */
 public final class View implements IView, Runnable {
 
 	/** The frame. */
-	private final ViewFrame viewFrame;
+	public final ViewFrame viewFrame;
 
 	/**
 	 * Instantiates a new view.
@@ -39,16 +38,16 @@ public final class View implements IView, Runnable {
 	 */
 	protected static ControllerOrder keyCodeToControllerOrder(final int keyCode) {
 		switch (keyCode) {
-			case KeyEvent.VK_G:
-				return ControllerOrder.English;
-			case KeyEvent.VK_F:
-				return ControllerOrder.Francais;
+			case KeyEvent.VK_Z:
+				return ControllerOrder.Top;
 			case KeyEvent.VK_D:
-				return ControllerOrder.Deutsch;
-			case KeyEvent.VK_I:
-				return ControllerOrder.Indonesia;
+				return ControllerOrder.Right;
+			case KeyEvent.VK_S:
+				return ControllerOrder.Bottom;
+			case KeyEvent.VK_Q:
+				return ControllerOrder.Left;
 			default:
-				return ControllerOrder.English;
+				return null;
 		}
 	}
 
@@ -59,6 +58,7 @@ public final class View implements IView, Runnable {
 	 */
 	public void printMessage(final String message) {
 		this.viewFrame.printMessage(message);
+		this.viewFrame.getGraphics().drawString(message, 200, 200);
 	}
 
 	/*
@@ -79,4 +79,10 @@ public final class View implements IView, Runnable {
 	public void setController(final IController controller) {
 		this.viewFrame.setController(controller);
 	}
+
+	public void actualiser() {
+		this.viewFrame.repaint();
+	}
+	
+	
 }

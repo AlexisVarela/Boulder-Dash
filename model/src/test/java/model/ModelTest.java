@@ -1,7 +1,3 @@
-/**
- * @author Jean-Aymeric DIET jadiet@cesi.fr
- * @version 1.0
- */
 package model;
 
 import org.junit.After;
@@ -10,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.hamcrest.CoreMatchers.instanceOf;
 
 public class ModelTest {
     private Model model;
@@ -32,22 +29,20 @@ public class ModelTest {
     }
 
     @Test
-    public void testGetMessage() {
-        Assert.assertEquals("", this.model.getHelloWorld().getMessage());
-    }
-
-    /**
-     * Test method for {@link model.Model#loadHelloWorld(java.lang.String)}.
-     */
+    public void getMap() {
+    	Assert.assertThat(this.model.getMap(), instanceOf(Map.class));
+	}
+    
     @Test
-    public void testGetMessageString() {
-        this.model.loadHelloWorld("GB");
-        Assert.assertEquals("Hello world", this.model.getHelloWorld().getMessage());
-        this.model.loadHelloWorld("FR");
-        Assert.assertEquals("Bonjour le monde", this.model.getHelloWorld().getMessage());
-        this.model.loadHelloWorld("DE");
-        Assert.assertEquals("Hallo Welt", this.model.getHelloWorld().getMessage());
-        this.model.loadHelloWorld("ID");
-        Assert.assertEquals("Salamat pagi dunia", this.model.getHelloWorld().getMessage());
-    }
+	public void getPlayer() {
+    	Assert.assertThat(this.model.getPlayer(), instanceOf(Player.class));
+	}
+    
+    @Test
+	public void setPlayer() {
+    	Player p1 = new Player();
+    	this.model.setPlayer(p1);
+    	Assert.assertEquals(this.model.getPlayer(), p1);
+	}
+
 }

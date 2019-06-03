@@ -4,66 +4,66 @@ import java.sql.SQLException;
 import java.util.Observable;
 
 import contract.IModel;
-import entity.HelloWorld;
 
 /**
  * The Class Model.
  *
- * @author Jean-Aymeric Diet
  */
 public final class Model extends Observable implements IModel {
 
-	/** The helloWorld. */
-	private HelloWorld helloWorld;
+	private Map map;
+	private Player player;
 
 	/**
 	 * Instantiates a new model.
 	 */
 	public Model() {
-		this.helloWorld = new HelloWorld();
+		this.map = new Map();
+		this.player = new Player();
 	}
 
+
 	/**
-     * Gets the hello world.
+     * Gets the map.
      *
-     * @return the hello world
+     * @return the map
      */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage()
-	 */
-	public HelloWorld getHelloWorld() {
-		return this.helloWorld;
+	public Map getMap() {
+		return this.map;
 	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
 
 	/**
      * Sets the hello world.
      *
-     * @param helloWorld
-     *            the new hello world
+     * @param map
+     *            The map
      */
-	private void setHelloWorld(final HelloWorld helloWorld) {
-		this.helloWorld = helloWorld;
+	private void setMap(final Map map) {
+		this.map = map;
 		this.setChanged();
 		this.notifyObservers();
 	}
 
 	/**
-     * Load hello world.
+     * Load the map.
      *
-     * @param code
-     *            the code
+     * @param id
+     *            Map ID from DB
      */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage(java.lang.String)
-	 */
-	public void loadHelloWorld(final String code) {
+	public void loadMap(final int id) {
 		try {
-			final DAOHelloWorld daoHelloWorld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
-			this.setHelloWorld(daoHelloWorld.find(code));
+			final DAOMap daoMap = new DAOMap(DBConnection.getInstance().getConnection());
+			this.setMap(daoMap.find(id));
 		} catch (final SQLException e) {
 			e.printStackTrace();
 		}
@@ -74,12 +74,12 @@ public final class Model extends Observable implements IModel {
      *
      * @return the observable
      */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getObservable()
-	 */
 	public Observable getObservable() {
 		return this;
+	}
+
+
+	@Override
+	public void loadMap(String code) {
 	}
 }
