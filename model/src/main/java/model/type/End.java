@@ -10,6 +10,9 @@ import contract.IBlock;
 import model.Block;
 import model.Model;
 
+/**
+ * Class End
+ */
 public class End extends Block implements IBlock {
 
 	public End(int posX, int posY) {

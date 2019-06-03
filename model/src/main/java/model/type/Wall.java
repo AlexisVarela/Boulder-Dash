@@ -8,6 +8,9 @@ import contract.IBlock;
 import model.Block;
 import model.Model;
 
+/**
+ * Class Wall
+ */
 public class Wall extends Block implements IBlock {
 
   protected boolean breakable;

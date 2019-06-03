@@ -13,6 +13,9 @@ import model.type.Monster;
 import model.type.Stone;
 import model.type.Wall;
 
+/**
+ * Class Map
+ */
 public class Map implements IMap {
 
 	private String dataMap;
@@ -87,6 +90,9 @@ public class Map implements IMap {
 		this.end = (Block) end;
 	}
 
+	/**
+	 * Generates the map
+	 */
 	public void generateMap() {
 		JSONObject obj = new JSONObject(this.dataMap);
 		for (int i=0; i<22*16; i+=16) {

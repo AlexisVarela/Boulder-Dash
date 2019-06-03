@@ -9,6 +9,11 @@ import contract.IBlock;
 import model.Block;
 import model.Model;
 
+/**
+ * Stone Class
+ * @author Java
+ *
+ */
 public class Stone extends Block implements IBlock {
 	
 	private boolean falling = false;

@@ -9,6 +9,9 @@ import contract.IBlock;
 import model.Block;
 import model.Model;
 
+/**
+ * Class Monster
+ */
 public class Monster extends Block implements IBlock {
 	private int posX;
 	private int posY;
@@ -30,15 +33,6 @@ public class Monster extends Block implements IBlock {
 
 	public void setSprite(Image sprite) {
 		this.sprite = sprite;
-	}
-
-	public void die() {
-		try {
-			this.setSprite(ImageIO.read(Model.class.getResource("/Death.png")));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	
 }

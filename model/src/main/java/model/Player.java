@@ -7,6 +7,9 @@ import javax.imageio.ImageIO;
 
 import contract.IPlayer;
 
+/**
+ * Class Player
+ */
 public class Player implements IPlayer {
 	private int posX;
 	private int posY;
@@ -78,6 +81,9 @@ public class Player implements IPlayer {
 		this.score += score;
 	}
 	
+	/**
+	 * Prints a message on death and close the window.
+	 */
 	public void die() {
 		try {
 			this.setSprite(ImageIO.read(Model.class.getResource("/Death.png")));

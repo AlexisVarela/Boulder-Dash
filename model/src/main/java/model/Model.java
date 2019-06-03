@@ -8,11 +8,9 @@ import contract.IModel;
 /**
  * The Class Model.
  *
- * @author Jean-Aymeric Diet
  */
 public final class Model extends Observable implements IModel {
 
-	/** The helloWorld. */
 	private Map map;
 	private Player player;
 
@@ -26,15 +24,10 @@ public final class Model extends Observable implements IModel {
 
 
 	/**
-     * Gets the hello world.
+     * Gets the map.
      *
-     * @return the hello world
+     * @return the map
      */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage()
-	 */
 	public Map getMap() {
 		return this.map;
 	}
@@ -52,8 +45,8 @@ public final class Model extends Observable implements IModel {
 	/**
      * Sets the hello world.
      *
-     * @param helloWorld
-     *            the new hello world
+     * @param map
+     *            The map
      */
 	private void setMap(final Map map) {
 		this.map = map;
@@ -62,20 +55,15 @@ public final class Model extends Observable implements IModel {
 	}
 
 	/**
-     * Load hello world.
+     * Load the map.
      *
-     * @param code
-     *            the code
+     * @param id
+     *            Map ID from DB
      */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage(java.lang.String)
-	 */
 	public void loadMap(final int id) {
 		try {
-			final DAOHelloWorld daoHelloWorld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
-			this.setMap(daoHelloWorld.find(id));
+			final DAOMap daoMap = new DAOMap(DBConnection.getInstance().getConnection());
+			this.setMap(daoMap.find(id));
 		} catch (final SQLException e) {
 			e.printStackTrace();
 		}
@@ -86,11 +74,6 @@ public final class Model extends Observable implements IModel {
      *
      * @return the observable
      */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getObservable()
-	 */
 	public Observable getObservable() {
 		return this;
 	}

@@ -5,18 +5,18 @@ import java.awt.Image;
 import contract.IBlock;
 
 public abstract class Block implements IBlock {
-  // Attributs
+	// Attributes
 	protected int posX;
 	protected int posY;
 	protected Image sprite;
 
-  // Constructeur
+	// Constructor
 	public Block(int posX, int posY) {
 		this.posX = posX;
 		this.posY = posY;
 	}
 
-  // Méthodes
+	// Methods
 	public int getPosX() {
 		return this.posX;
 	}

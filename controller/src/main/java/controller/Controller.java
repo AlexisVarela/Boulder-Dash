@@ -105,6 +105,11 @@ public final class Controller implements IController {
 		}
 	}
 	
+	/**
+	 * Check if the player is able to walk on next block
+	 * @param controllerOrder Pressed key
+	 * @return boolean
+	 */
 	public boolean canMove(ControllerOrder controllerOrder) {
 		int x = 0;
 		int y = 0;
@@ -139,6 +144,11 @@ public final class Controller implements IController {
 		return false;
 	}
 	
+	/**
+	 * Casts an action depending of the block you are on
+	 * @param block Block
+	 * @param idBlock Block ID
+	 */
 	public void actionBlock(Block block, int idBlock) {
 		int playerX = model.getPlayer().getPosX()/16;
 		int blockX = block.getPosX()/16;
@@ -183,6 +193,9 @@ public final class Controller implements IController {
 		}
 	}
 	
+	/**
+	 * Starts the game
+	 */
 	public void run() {
 		int i=0;
 		while(true) {
@@ -201,6 +214,9 @@ public final class Controller implements IController {
 		}
 	}
 	
+	/**
+	 * Check if diamonds or stones can fall and make them fall
+	 */
 	public void checkForFall() {
 		String[] fallable = {"model.type.Stone", "model.type.Diamond"};
 		ArrayList<IBlock> mapArray = model.getMap().getGeneratedMap();
@@ -253,6 +269,9 @@ public final class Controller implements IController {
 			}
 	}
 	
+	/**
+	 * Randomly moves the monsters
+	 */
 	public void moveMonster() {
 		ArrayList<IBlock> mapArray = model.getMap().getGeneratedMap();
 		int x=0;
@@ -292,6 +311,9 @@ public final class Controller implements IController {
 		}
 	}
 
+	/**
+	 * Prints a death message and closes the window
+	 */
 	public void die() {
 		this.model.getPlayer().die();
 		this.explode(0);
@@ -300,6 +322,10 @@ public final class Controller implements IController {
 		System.exit(0);
 	}
 	
+	/**
+	 * Animation on player/mob deaths - Generates 3x3 diamond cube
+	 * @param i Player/Mob position
+	 */
 	public void explode(int i) {
 		ArrayList<IBlock> mapArray = model.getMap().getGeneratedMap();
 		if (i == 0) {

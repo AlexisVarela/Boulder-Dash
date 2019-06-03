@@ -8,10 +8,13 @@ import contract.IBlock;
 import model.Block;
 import model.Model;
 
+/**
+ * Class Diamond
+ */
 public class Diamond extends Block implements IBlock {
 
 	private boolean falling = false;
-  // Constructeur
+	// Constructor
 	public Diamond(int posX, int posY) {
     super(posX, posY);
     try {
